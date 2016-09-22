@@ -100,9 +100,8 @@ describe('Express CRUD', function() {
 
 ## Problems
 
-1. Complete the CRUD application from the provided wireframes using TDD. For acceptance tests use [Protractor](https://angular.github.io/protractor/#/). For unit tests use [Mocha](https://mochajs.org/) with [Chai](http://chaijs.com/).
+1. Complete the CRUD application from the provided wireframes using TDD. For acceptance tests use [Protractor](https://angular.github.io/protractor/#/). For unit tests use [Mocha](https://mochajs.org/) with [Chai](http://chaijs.com/). You can ignore integration tests for now - we will cover integration testing Express apps later.
 1. Use Git to commit your new application and push it to a remote repository (either your fork of this problem set or a new repository).
-1. [stretch] Use sinon to mock express and monk to write unit tests for your routes.
 1. [stretch] In Agile software development, it is important to understand who the users of a system are. As we will see later on, a way to do this is to define a set of personas who are basically the users of our system (aka humans). For this exercise we have two personas:
   1. _Gary the Guest_ - Gary is a music fan who has never visited the "OMG Albums!" application before.
   1. _Mary the Music Lover_ - Registered user of the "OMG Albums!" application, she loves music and regularly uses the album catalogue.
