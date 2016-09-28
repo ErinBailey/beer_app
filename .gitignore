@@ -1,11 +1,9 @@
-# node
-node_modules/
-
-# IntelliJ
-.idea/
-*.ipr
+.idea
 *.iml
-*.iws
-
-# mac
+target
+build
+project.xcworkspace
+xcuserdata
+bower_components
+node_modules
 .DS_Store
