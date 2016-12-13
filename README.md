@@ -53,54 +53,84 @@ These wireframes give a sketch of how the application should work. _Hint:_ Pay a
 
 1. Use the `express .` command to create an empty skeleton in this directory.
 1. Run `npm install` to import dependencies.
-1. Run `npm install --save-dev chai protractor` to add test dependencies.
+1. Run `npm install --save-dev nodemon mocha chai supertest jasmine protractor` to add test dependencies.
 1. Run `npm install --save monk` to read from the database.
-1. Create `/test/conf.js` (from [Protractor tutorial](http://www.protractortest.org/#/tutorial)):
-```
-exports.config = {
-  specs: ['acceptance/*.js'],
-  framework: 'mocha',
-  mochaOpts: {
-    reporter: 'spec',
-    slow: 3000,
-    enableTimeouts: false
-  },
-  capabilities: {
-    'browserName': 'chrome'
-  },
-  directConnect: true
-};
-```
+1. Replace the `script` section of `package.json` with the following:
+    ```
+      "scripts": {
+        "start": "node ./bin/www",
+        "tdd": "nodemon --watch ./ --exec 'mocha test/unit' --delay 1 ./bin/www",
+        "test": "npm run test:wmu && npm run test:unit && npm run test:integration && npm run test:acceptance",
+        "test:acceptance": "protractor test/acceptance/config.js",
+        "test:integration": "mocha test/integration --recursive",
+        "test:unit": "mocha test/unit/ --recursive",
+        "test:wmu": "webdriver-manager update"
+      },
+	```
+	This provides the following commnds:
+    1. `npm test` will run all tests: unit tests first, then integration tests, then acceptance tests.
+    2. `npm run tdd` will monitor the project directory and run the unit tests every time a file is updated. (type `rs` in the command line to restart nodemon - may need to restart to see certain changes)
+    2. `npm run test:unit` to run the _only_ the unit tests.
+    2. `npm run test:integration` to run the _only_ the integration tests.
+    3. `npm run test:acceptance` to run the _only_ the acceptance tests.
+1. Create `/test/unit/placholder_test.js` and leave it blank. You can delete this file once you have another unit test.
+2. Create `/test/integration/placholder_test.js` and leave it blank. You can delete this file once you have another integration test.
+1. Create `/test/acceptance/config.js` (from [Protractor tutorial](http://www.protractortest.org/#/tutorial)):
+
+    ```
+    'use strict'
+    module.exports.config = {
+      specs: ['./**/*_test.js'],
+      framework: 'jasmine',
+      mochaOpts: {
+        reporter: 'spec',
+        slow: 3000,
+        enableTimeouts: false
+      },
+      capabilities: {
+        'browserName': 'chrome'
+      },
+      directConnect: true
+    }
+
+    ```
+
 1. Create `test/acceptance/album_test.js` (from [Protractor tutorial](http://www.protractortest.org/#/tutorial)):
 
-```
-var http = require('http');
-var expect = require('chai').expect;
-var app = require('../../app');
+    ```
+    'use strict'
 
-before(function() {
-  var server = http.createServer(app);
-  server.listen(0);
-  browser.baseUrl = 'http://localhost:' + server.address().port;
-  browser.ignoreSynchronization = true;
-});
+    const path = require('path')
+    const http = require('http')
+    const app = require(path.resolve('app'))
 
-describe('Express CRUD', function() {
-  describe('Given I visit /users', function() {
-    it('Then I see the express default', function() {
-      browser.get('/users');
-      element(by.tagName('body')).getText().then(function(text) {
-        expect(text).to.equal('respond with a resource');
-      });
-    });
+    describe('Express CRUD', () => {
+      beforeAll(() => {
+        const server = http.createServer(app)
+        server.listen(0)
+        browser.baseUrl = 'http://localhost:' + server.address().port
+        browser.ignoreSynchronization = true
+      })
 
-  });
-});
-```
+      describe('Given I visit /users', () => {
+        it('Then I see the express default', () => {
+          browser.get('/users')
+          expect(element(by.tagName('body')).getText()).toEqual('respond with a resource')
+        })
+      })
+    })
+    ```
+1. run `npm test` from the command line. If all tests pass the project is setup correctly.
+1. Commit your changes to `git` (we will go into `git` in more detail later):
+	```
+    git add .
+    git commit -m 'Project setup complete'
+    ```
+    Consider commiting your changes after each refactor step.
 
 ## Problems
 
-1. Complete the CRUD application from the provided wireframes using TDD. For acceptance tests use [Protractor](https://angular.github.io/protractor/#/). For unit tests use [Mocha](https://mochajs.org/) with [Chai](http://chaijs.com/). You can ignore integration tests for now - we will cover integration testing Express apps later.
+1. Complete the CRUD application from the provided wireframes using TDD. For acceptance tests use [Protractor](https://angular.github.io/protractor/#/) with [Jasmine](https://jasmine.github.io/). For unit tests use [Mocha](https://mochajs.org/) with [Chai](http://chaijs.com/). You can ignore integration tests for now - we will cover integration testing Express apps later.
 1. Use Git to commit your new application and push it to a remote repository (either your fork of this problem set or a new repository).
 1. [stretch] In Agile software development, it is important to understand who the users of a system are. As we will see later on, a way to do this is to define a set of personas who are basically the users of our system (aka humans). For this exercise we have two personas:
   1. _Gary the Guest_ - Gary is a music fan who has never visited the "OMG Albums!" application before.
@@ -127,6 +157,9 @@ describe('Express CRUD', function() {
 1. [epic stretch] Now that you have implemented user registration and authentication, what kind of features would we expect to add? Although there are many answers, we will focus on a common problem; authorization. For this part of the exercise, use the provided written description and write your own user stories:
 
   1. When Gary attempts to visit any path that includes `/albums` (e.g. `/albums/new`), they are redirected to `/` and told to login before visiting that path. Are there any other paths for which this should be the case?
+
+__Hint__: We are using Jasmine for the acceptance tests rather than Mocha because all of the protractor documentation uses Jasmine.
+You might also consider reviewing the [protractor API](http://www.protractortest.org/#/api) page before starting.
 
 ## Reflection
 
