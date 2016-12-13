@@ -57,15 +57,15 @@ These wireframes give a sketch of how the application should work. _Hint:_ Pay a
 1. Run `npm install --save monk` to read from the database.
 1. Replace the `script` section of `package.json` with the following:
     ```
-      "scripts": {
-        "start": "node ./bin/www",
-        "tdd": "nodemon --watch ./ --exec 'mocha test/unit' --delay 1 ./bin/www",
-        "test": "npm run test:wmu && npm run test:unit && npm run test:integration && npm run test:acceptance",
-        "test:acceptance": "protractor test/acceptance/config.js",
-        "test:integration": "mocha test/integration --recursive",
-        "test:unit": "mocha test/unit/ --recursive",
-        "test:wmu": "webdriver-manager update"
-      },
+  "scripts": {
+    "start": "node ./bin/www",
+    "tdd": "nodemon --watch ./ --exec 'mocha test/unit' --delay 1 ./bin/www",
+    "test": "npm run test:wmu && npm run test:unit && npm run test:integration && npm run test:acceptance",
+    "test:acceptance": "NODE_ENV=test protractor test/acceptance/config.js",
+    "test:integration": "NODE_ENV=test mocha test/integration --recursive",
+    "test:unit": "NODE_ENV=test mocha test/unit/ --recursive",
+    "test:wmu": "webdriver-manager update"
+  },
 	```
 	This provides the following commnds:
     1. `npm test` will run all tests: unit tests first, then integration tests, then acceptance tests.
