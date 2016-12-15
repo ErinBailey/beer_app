@@ -20,6 +20,8 @@ describe('Express CRUD', () => {
     it('Then I see the link to create a new album', () => {
       browser.get('/albums')
       expect(element(by.tagName('a')).getText()).toEqual('Create Album')
+      let hrefText = element(by.cssContainingText('a','Create Album')).getAttribute('href')
+      expect(hrefText).toContain('/new')
     })
   })
 })
