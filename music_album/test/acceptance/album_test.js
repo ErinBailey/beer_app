@@ -12,10 +12,14 @@ describe('Express CRUD', () => {
     browser.ignoreSynchronization = true
   })
 
-  describe('Given I visit /users', () => {
-    it('Then I see the express default', () => {
-      browser.get('/users')
-      expect(element(by.tagName('body')).getText()).toEqual('respond with a resource')
+  describe('Given I visit /albums', () => {
+    it('Then I see the Album header', () => {
+      browser.get('/albums')
+      expect(element(by.tagName('h1')).getText()).toEqual('Albums')
+    })
+    it('Then I see the link to create a new album', () => {
+      browser.get('/albums')
+      expect(element(by.tagName('a')).getText()).toEqual('Create Album')
     })
   })
 })
