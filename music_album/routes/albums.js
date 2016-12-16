@@ -17,6 +17,20 @@ router.post('/', (req, res, next) =>{
     res.redirect('albums')
   })
 })
+router.get('/:id', (req, res, next) =>{
+   const albumCollection = db.get('albums')
 
+     albumCollection.findOne({_id: req.params.id}, (err, album) =>{
+     //   if(err){
+     //     next(err)
+     //   }
+     console.log(album)
+       res.render('show', {album: album})
+
+
+     })
+
+
+})
 
 module.exports = router
