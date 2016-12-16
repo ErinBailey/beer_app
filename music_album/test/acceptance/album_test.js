@@ -41,6 +41,7 @@ describe('Express CRUD', () => {
         expect(element.all(by.css('tr')).all(by.css('td')).get(0).getText()).toEqual('Genre')
         expect(element.all(by.css('tr')).all(by.css('td')).get(1).getText()).toEqual('Artist')
         expect(element.all(by.css('tr')).all(by.css('td')).get(2).getText()).toEqual('Album')
+
       })
     })
 
@@ -53,6 +54,7 @@ describe('Express CRUD', () => {
         expect(element.all(by.css('tr')).get(1).all(by.css('td')).get(0).getText()).toEqual('Jazz')
         expect(element.all(by.css('tr')).get(1).all(by.css('td')).get(1).getText()).toEqual('Miles Davis')
         expect(element.all(by.css('tr')).get(1).all(by.css('td')).get(2).getText()).toEqual('Kind of Blue')
+        expect(element.all(by.css('a')).get(1).getAttribute('href').getText()).toEqual('Kind of Blue')
       })
 
 

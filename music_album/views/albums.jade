@@ -13,4 +13,5 @@ block content
       tr
         td #{album.Genre}
         td #{album.Artist}
-        td #{album.Album}
+        td 
+          a(href='/albums/#{album._id}') #{album.Album}
