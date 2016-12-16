@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+  h1 Create Album
+  form(name='Add-album' method='POST' action='/albums')
+    div.input
+      span.label(for='artist') Artist: &nbsp
+      input(type='text' name='Artist')
+      br
+      br
+      span.label(for='album') Album: &nbsp
+      input(type='text' name='Album')
+      br
+      br
+      span.label(for='genre') Genre: &nbsp
+      select(name='Genre')
+        option(value='Jazz') Jazz
+        option(value='Rock') Rock
+      br
+      br
+      input(type='submit' value='Submit')
