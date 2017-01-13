@@ -2,21 +2,21 @@ extends layout
 
 block content
 
-  h1 Create Album
-  form(name='Add-album' method='POST' action='/albums')
+  h1 Create Beer
+  form(name='Add-beer' method='POST' action='/beers')
     div.input
       span.label(for='artist') Artist: &nbsp
       input(type='text' name='Artist')
       br
       br
-      span.label(for='album') Album: &nbsp
-      input(type='text' name='Album')
+      span.label(for='beer') Beer: &nbsp
+      input(type='text' name='Beer')
       br
       br
       span.label(for='genre') Genre: &nbsp
       select(name='Genre')
-        option(value='Jazz') Jazz
-        option(value='Rock') Rock
+        option(value='Ale') Ale
+        option(value='Lager') Lager
       br
       br
       input(type='submit' value='Submit')
