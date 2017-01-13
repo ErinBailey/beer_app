@@ -4,16 +4,16 @@ const path = require('path')
 const http = require('http')
 const app = require(path.resolve('app'))
 
-const albumsCollection = require(path.resolve('config/database')).get('albums')
+const beersCollection = require(path.resolve('config/database')).get('beers')
 
-var albumToInsert =
+var beerToInsert =
 {
-  Artist: 'Miles Davis',
-  Genre: 'Jazz',
-  Album: 'Kind of Blue'
+  Brewery: 'Revolution',
+  Type: 'Lager',
+  Name: 'Fist City'
 }
 
-describe('Given there is an album show page', () =>{
+describe('Given there is an beer show page', () =>{
   beforeAll(() => {
     const server = http.createServer(app)
     server.listen(0)
@@ -22,19 +22,19 @@ describe('Given there is an album show page', () =>{
 
   })
   beforeEach((done) => {
-    albumsCollection.insert(albumToInsert, done)
+    beersCollection.insert(beerToInsert, done)
   })
 
   afterEach((done) => {
-    albumsCollection.remove({}, done)
+    beersCollection.remove({}, done)
   })
 
-  fdescribe('When I visit the page', () =>{
-    it('Then I will see the ablum details', () =>{
-      browser.get('/albums/' + albumToInsert._id)
-      expect(element(by.tagName('h1')).getText()).toEqual('Kind of Blue')
-      expect(element.all(by.tagName('p')).get(0).getText()).toEqual('Jazz')
-      expect(element(by.id('artist')).getText()).toEqual('Miles Davis')
+  describe('When I visit the page', () =>{
+    it('Then I will see the beer details', () =>{
+      browser.get('/beers/' + beerToInsert._id)
+      expect(element(by.tagName('h1')).getText()).toEqual('Fist City')
+      expect(element.all(by.tagName('p')).get(0).getText()).toEqual('Lager')
+      expect(element(by.id('brewery')).getText()).toEqual('Revolution')
     })
   })
 })

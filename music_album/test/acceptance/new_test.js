@@ -3,7 +3,7 @@
 const path = require('path')
 const http = require('http')
 const app = require(path.resolve('app'))
-const albumsCollection = require(path.resolve('config/database')).get('our_music_library')
+const beersCollection = require(path.resolve('config/database')).get('our_beer_library')
 
 describe('Express CRUD', () => {
   beforeAll(() => {
@@ -12,22 +12,26 @@ describe('Express CRUD', () => {
     browser.baseUrl = 'http://localhost:' + server.address().port
     browser.ignoreSynchronization = true
   })
-    describe('When I visit the create album page', () =>{
-      it('Then I will see a form to create an album', () =>{
-        browser.get('albums/new')
-        expect(element(by.tagName('h1')).getText()).toEqual('Create Album')
-        expect(element(by.tagName('form')).getAttribute('name')).toEqual('Add-album')
-        expect(element.all(by.tagName('input')).get(0).getAttribute('name')).toEqual('Artist')
-        expect(element.all(by.tagName('input')).get(1).getAttribute('name')).toEqual('Album')
-        expect(element(by.tagName('select')).getAttribute('name')).toEqual('Genre')
-        expect(element.all(by.tagName('option')).get(0).getAttribute('value')).toEqual('Jazz')
+    afterEach((done) => {
+    beersCollection.remove({}, done)
+  })
+
+    describe('When I visit the create beer page', () =>{
+      it('Then I will see a form to create an beer', () =>{
+        browser.get('beers/new')
+        expect(element(by.tagName('h1')).getText()).toEqual('Create Beer')
+        expect(element(by.tagName('form')).getAttribute('name')).toEqual('Add-beer')
+        expect(element.all(by.tagName('input')).get(0).getAttribute('name')).toEqual('Brewery')
+        expect(element.all(by.tagName('input')).get(1).getAttribute('name')).toEqual('Beer')
+        expect(element(by.tagName('select')).getAttribute('name')).toEqual('Type')
+        expect(element.all(by.tagName('option')).get(0).getAttribute('value')).toEqual('Ale')
         expect(element.all(by.tagName('input')).get(2).getAttribute('value')).toContain('Submit')
 
       })
-      it('And I hit submit, Then it should redirect back to albums', () =>{
+      it('And I hit submit, Then it should redirect back to beers', () =>{
         var buttonClick = element.all(by.tagName('input')).get(2)
         buttonClick.click()
-        expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/albums')
+        expect(browser.getCurrentUrl()).toEqual(browser.baseUrl + '/beers')
       })
 
     })

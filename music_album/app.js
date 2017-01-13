@@ -5,6 +5,8 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
+const stormpath = require('express-stormpath');
+
 const index = require('./routes/index')
 const users = require('./routes/users')
 const beers = require('./routes/beers')
@@ -22,6 +24,18 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(stormpath.init(app, {
+  client: {
+    apiKey: {
+      id: '22RQ8GZ1Z1QJFSA8HVD185CKY',
+      secret: 'wCN5cuQVo7znWwNJv00LWZREq+HTR2jphttbIqF4KL0',
+    }
+  },
+  application: {
+    href: 'https://api.stormpath.com/v1/applications/3nyfZ3X3sQJEPtJarFN3B5'
+  }
+}))
 
 app.use('/', index)
 app.use('/users', users)

@@ -5,16 +5,16 @@ block content
   h1 Create Beer
   form(name='Add-beer' method='POST' action='/beers')
     div.input
-      span.label(for='artist') Artist: &nbsp
-      input(type='text' name='Artist')
+      span.label(for='brewery') Brewery: &nbsp
+      input(type='text' name='Brewery')
       br
       br
-      span.label(for='beer') Beer: &nbsp
+      span.label(for='beer') Name: &nbsp
       input(type='text' name='Beer')
       br
       br
-      span.label(for='genre') Genre: &nbsp
-      select(name='Genre')
+      span.label(for='type') Type: &nbsp
+      select(name='Type')
         option(value='Ale') Ale
         option(value='Lager') Lager
       br

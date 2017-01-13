@@ -13,15 +13,15 @@ describe('Express CRUD', () => {
   })
 
   describe('Given I visit /', () => {
-    it('Then I see OMG Albums', () => {
+    it('Then I see OMG BEERS', () => {
       browser.get('/')
-      expect(element(by.tagName('h1')).getText()).toEqual('OMG Albums!')
+      expect(element(by.tagName('h1')).getText()).toEqual('OMG BEERS!')
     })
     it('Then I see the link text', () => {
       browser.get('/')
       expect(element(by.tagName('a')).getText()).toEqual('Let me see the RIGHT NOW')
       let hrefText = element(by.cssContainingText("a","Let me see the RIGHT NOW")).getAttribute('href')
-      expect(hrefText).toContain('/albums')
+      expect(hrefText).toContain('/beers')
     })
 
   })
